@@ -8,6 +8,8 @@ class AppTheme {
   static const Color azulMar = Color(0xFF165795);
   static const Color azulVerdoso = Color(0xFF458997);
   static const Color verde = Color(0xFF80B03B);
+  static const Color verdeOscuro = Color(0xFF0e1c0d);
+
 
   static const Color primaryColor = Colors.blue;
   static const Color bodyTextColor = Color.fromARGB(255, 135, 135, 135);

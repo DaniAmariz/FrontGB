@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/config/helpers/birdsDataService.dart';
-import 'package:frontend/config/models/birdModel.dart';
+import 'package:frontend/config/theme/appTheme.dart';
 import 'package:frontend/interface/screens/user/cameraScreen.dart';
 import 'package:frontend/interface/screens/user/profileScreen.dart';
 import 'package:frontend/interface/screens/home/homeScreen.dart';
@@ -17,9 +16,7 @@ class HomeScreenContainer extends StatefulWidget {
 
 class _HomeScreenContainerState extends State<HomeScreenContainer> {
 
-  final getDataBirds = GetDataBirds();
-  final List<Bird> birds = [];
-  bool showBirds = false;
+
   int index = 0;
 
   final List<Widget> screens = [
@@ -28,41 +25,18 @@ class _HomeScreenContainerState extends State<HomeScreenContainer> {
     ProfileScreen(),
   ];
 
-
-  @override
-  void initState() {
-    super.initState();
-    _getBirds();
-  }
-
-  Future<void> _getBirds() async {
-    try {
-      var birds = await getDataBirds.getBirds();
-      setState(() {
-        birds = birds;
-      });
-    } catch (e) {
-      print(e);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Inicio"),
+        title: const Text("Inicio", style: TextStyle(color: Colors.white),),
+        backgroundColor: AppTheme.verdeOscuro,
+
       ),
-      body:Container(
-        decoration: const BoxDecoration(
-        image: DecorationImage(
-        image: AssetImage("lib/interface/assets/background.jpeg"),
-        fit: BoxFit.cover,
-        ),
-        ),
-        child: screens[index],
-      ),
+      body: screens[index],
     bottomNavigationBar: BottomNavigationBar(
         currentIndex: index,
+        backgroundColor: AppTheme.verdeOscuro,
         onTap: (index) {
           setState(() {
             index = index;
