@@ -16,8 +16,9 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
 
-final TextEditingController usernameController = TextEditingController();
-final TextEditingController passwordController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +41,7 @@ final TextEditingController passwordController = TextEditingController();
                   width: 300,
                   padding: const EdgeInsets.only(left: 5, right: 5),
                   child: Form(
+                    key: formKey,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -88,7 +90,9 @@ final TextEditingController passwordController = TextEditingController();
                             height: 50,
                             child: ElevatedButton(
                               onPressed: () {
-                                AuthService().login(usernameController.text, passwordController.text, context);
+                                if (formKey.currentState!.validate()) {
+                                  AuthService().login(usernameController.text, passwordController.text, context);
+                                }
                               },
                               style: ButtonStyle(
                                 backgroundColor: WidgetStateProperty.all<Color>(AppTheme.azulOscuro),

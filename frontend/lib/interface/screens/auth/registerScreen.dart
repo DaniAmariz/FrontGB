@@ -18,6 +18,7 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
 
+  final formKey = GlobalKey<FormState>();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController birthController = TextEditingController();
@@ -78,6 +79,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   width: 300,
                   padding: const EdgeInsets.only(left: 5, right: 5),
                   child: Form(
+                    key: formKey,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -180,6 +182,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 child: Text(gender),
                               );
                             }).toList(),
+                            validator: (value) => RegisterValidator.validateSelection(value, "género"),
                           ),
                         ),
                         DropdownButtonFormField<String>(
@@ -264,6 +267,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               child: Text(gender),
                             );
                           }).toList(),
+                          validator: (value) => RegisterValidator.validateSelection(value, "ocupación"),
                         ),
                   Padding(padding: const EdgeInsets.only(top:10, bottom:10),
                     child: TextFormField(
@@ -347,7 +351,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             height: 50,
                             child: ElevatedButton(
                               onPressed: () {
-                                if (departmentController != null && municipalityController != null) {
+                                if (formKey.currentState!.validate()) {
                                   User user = User(
                                     name: nameController.text,
                                     lastName: lastNameController.text,
@@ -361,13 +365,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     password: passwordController.text,
                                   );
                                   AuthService().register(user, context);
-                                } else {
-                                  // Mostrar un mensaje de error al usuario
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text('Por favor, seleccione un departamento y municipio'),
-                                    ),
-                                  );
                                 }
                               },
                               style: ButtonStyle(
@@ -387,7 +384,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Padding(padding:const EdgeInsets.only(top:10, bottom:8),
                           child: GestureDetector(
                             onTap: () {
-                              context.go('/');
+                                context.go('/');
                             },
                             child: const Text(
                               "¿Ya tienes una cuenta? Inicia sesión",
