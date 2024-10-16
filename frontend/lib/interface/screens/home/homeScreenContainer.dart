@@ -37,15 +37,17 @@ class _HomeScreenContainerState extends State<HomeScreenContainer> {
     bottomNavigationBar: BottomNavigationBar(
         currentIndex: index,
         backgroundColor: AppTheme.verdeOscuro,
-        onTap: (index) {
+        onTap: (newIndex) {
           setState(() {
-            index = index;
+            index = newIndex;
+
           });
         },
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home, size: 30.0, color: Colors.white),
             label: 'Home',
+
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.camera_alt, size: 30.0, color: Colors.white),
