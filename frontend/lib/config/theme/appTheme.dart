@@ -9,6 +9,8 @@ class AppTheme {
   static const Color azulVerdoso = Color(0xFF458997);
   static const Color verde = Color(0xFF80B03B);
   static const Color verdeOscuro = Color(0xFF0e1c0d);
+  static const Color verdeClaro = Color(0xFF4a6b48);
+
 
 
   static const Color primaryColor = Colors.blue;

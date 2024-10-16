@@ -19,6 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final formKey = GlobalKey<FormState>();
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  bool visibilityPassword = true;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         TextFormField(
-                          style: const TextStyle(color: Colors.black),
+                          style: const TextStyle(color: Colors.black87, fontSize: 14),
                           controller: usernameController,
                           decoration: InputDecoration(
                             hintText: 'USUARIO',
@@ -64,9 +65,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         Padding(padding: const EdgeInsets.only(top:15, bottom:10),
                         child: TextFormField(
-                          style: const TextStyle(color: Colors.black),
+                          style: const TextStyle(color: Colors.black87, fontSize: 14),
                           controller: passwordController,
-                          obscureText: true,
+                          obscureText: visibilityPassword,
                           decoration: InputDecoration(
                             hintText: 'CONTRASEÑA',
                             hintStyle: const TextStyle(color: AppTheme.verdeAgua, fontSize: 14),
@@ -76,9 +77,16 @@ class _LoginScreenState extends State<LoginScreen> {
                               border: UnderlineInputBorder(
                                 borderRadius: BorderRadius.circular(30),
                                 borderSide: BorderSide.none
-                              )
+                              ),
+                              suffixIcon: IconButton(onPressed: () {
+                                setState(() {
+                                  visibilityPassword = !visibilityPassword;
+                                });
+                              }, icon: Icon(
+                                visibilityPassword ? Icons.visibility_off : Icons.visibility,
+                                color: AppTheme.verdeAgua,
+                              ),)
                           ),
-                          keyboardType: TextInputType.visiblePassword,
                           textInputAction: TextInputAction.done,
                           validator: (value) => LoginValidator.validatePassword(value),
                         ),
@@ -108,20 +116,36 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                         ),
+
                         Padding(padding:const EdgeInsets.only(top:10, bottom:8),
-                        child: GestureDetector(
-                          onTap: () {
-                            context.go('/register');
-                          },
-                          child: const Text(
-                            "¿No tienes cuenta? Regístrate",
-                            style: TextStyle(
-                              color: Colors.white,
-                              decoration: TextDecoration.underline,
-                              fontSize: 12,
+                          child: GestureDetector(
+                            onTap: () {
+                              context.go('/reset');
+                            },
+                            child: const Text(
+                              "¿Olvidaste tu contraseña?",
+                              style: TextStyle(
+                                color: Colors.white,
+                                decoration: TextDecoration.underline,
+                                fontSize: 12,
+                              ),
                             ),
-                          ),
-                        ),),
+                          ),),
+
+                        Padding(padding:const EdgeInsets.only(top:10, bottom:8),
+                          child: GestureDetector(
+                            onTap: () {
+                              context.go('/register');
+                            },
+                            child: const Text(
+                              "¿No tienes cuenta? Regístrate",
+                              style: TextStyle(
+                                color: Colors.white,
+                                decoration: TextDecoration.underline,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ),),
 
                         Padding(padding: const EdgeInsets.only(top: 10),
                         child: SizedBox(

@@ -32,6 +32,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   List<String> municipalities = [];
   String? departmentController;
   String? municipalityController;
+  bool visibilityPassword = true;
+  bool visibilityConfirmedPassword = true;
 
   @override
   void initState() {
@@ -84,7 +86,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         TextFormField(
-                          style: const TextStyle(color: Colors.black),
+                          style: const TextStyle(color: Colors.black87, fontSize: 14),
                           controller: nameController,
                           decoration: InputDecoration(
                               hintText: 'NOMBRE',
@@ -102,7 +104,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                   Padding(padding: const EdgeInsets.only(top:10, bottom:10),
                     child: TextFormField(
-                          style: const TextStyle(color: Colors.black),
+                          style: const TextStyle(color: Colors.black87, fontSize: 14),
                           controller: lastNameController,
                           decoration: InputDecoration(
                               hintText: 'APELLIDOS',
@@ -137,7 +139,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           },
                           child: AbsorbPointer(
                             child: TextFormField(
-                              style: const TextStyle(color: Colors.black),
+                              style: const TextStyle(color: Colors.black87, fontSize: 14),
                               controller: birthController,
                               decoration: InputDecoration(
                                 hintText: 'FECHA NACIMIENTO',
@@ -159,9 +161,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           padding: const EdgeInsets.only(top: 10, bottom: 10),
                           child: DropdownButtonFormField(
                             decoration: InputDecoration(
-                              hintText: 'GÉNERO',
-                              hintStyle: const TextStyle(color: AppTheme.verdeAgua, fontSize: 14),
+                              labelText: 'GÉNERO',
                               filled: true,
+                              labelStyle:const TextStyle(color: AppTheme.verdeAgua, fontSize: 14),
                               fillColor: Colors.white.withOpacity(0.7),
                               border: UnderlineInputBorder(
                                 borderRadius: BorderRadius.circular(30),
@@ -172,6 +174,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             onChanged: (newValue) {
                               genderController.text = newValue as String;
                             },
+                            style: const TextStyle(color: Colors.black87, fontSize: 14),
                             items: [
                               'Masculino',
                               'Femenino',
@@ -187,9 +190,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                         DropdownButtonFormField<String>(
                           decoration: InputDecoration(
-                            hintText: 'DEPARTAMENTO',
-                            hintStyle: const TextStyle(color: AppTheme.verdeAgua, fontSize: 14),
+                            labelText: 'DEPARTAMENTO',
                             filled: true,
+                            labelStyle:const TextStyle(color: AppTheme.verdeAgua, fontSize: 14),
                             fillColor: Colors.white.withOpacity(0.7),
                             contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
                             border: UnderlineInputBorder(
@@ -198,6 +201,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ),
                           ),
                           value: departmentController,
+                          style: const TextStyle(color: Colors.black87, fontSize: 14),
                           items: departments.isNotEmpty
                               ? departments.map((String state) => DropdownMenuItem(
                             value: state,
@@ -218,9 +222,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Padding(padding: const EdgeInsets.only(top:10, bottom:10),
                     child: DropdownButtonFormField<String>(
                       decoration: InputDecoration(
-                        hintText: 'MUNICIPIO',
-                        hintStyle: const TextStyle(color: AppTheme.verdeAgua, fontSize: 14),
+                        labelText: 'MUNICIPIO',
                         filled: true,
+                        labelStyle:const TextStyle(color: AppTheme.verdeAgua, fontSize: 14),
                         fillColor: Colors.white.withOpacity(0.7),
                         contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
                         border: UnderlineInputBorder(
@@ -229,6 +233,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                       ),
                       value: municipalityController,
+                      style: const TextStyle(color: Colors.black87, fontSize: 14),
                       items: municipalities.isNotEmpty
                           ? municipalities.map((String municipality) => DropdownMenuItem(
                         value: municipality,
@@ -245,9 +250,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                         DropdownButtonFormField(
                           decoration: InputDecoration(
-                            hintText: 'OCUPACIÓN',
-                            hintStyle: const TextStyle(color: AppTheme.verdeAgua, fontSize: 14),
+                            labelText: 'OCUPACIÓN',
                             filled: true,
+                            labelStyle:const TextStyle(color: AppTheme.verdeAgua, fontSize: 14),
                             fillColor: Colors.white.withOpacity(0.7),
                             border: UnderlineInputBorder(
                               borderRadius: BorderRadius.circular(30),
@@ -258,20 +263,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           onChanged: (newValue) {
                             occupationController.text = newValue as String;
                           },
+                          style: const TextStyle(color: Colors.black87, fontSize: 14),
                           items: [
                             'Estudiante',
                             'Profesor'
-                          ].map((gender) {
+                          ].map((ocup) {
                             return DropdownMenuItem<String>(
-                              value: gender,
-                              child: Text(gender),
+                              value: ocup,
+                              child: Text(ocup),
                             );
                           }).toList(),
                           validator: (value) => RegisterValidator.validateSelection(value, "ocupación"),
                         ),
                   Padding(padding: const EdgeInsets.only(top:10, bottom:10),
                     child: TextFormField(
-                          style: const TextStyle(color: Colors.black),
+                          style: const TextStyle(color: Colors.black87, fontSize: 14),
                           controller: emailController,
                           decoration: InputDecoration(
                               hintText: 'CORREO ELECTRÓNICO',
@@ -288,7 +294,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           validator: (value) => RegisterValidator.validateEmail(value)),
                         ),
                         TextFormField(
-                          style: const TextStyle(color: Colors.black),
+                          style: const TextStyle(color: Colors.black87, fontSize: 14),
                           controller: usernameController,
                           decoration: InputDecoration(
                               hintText: 'USUARIO',
@@ -306,38 +312,55 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                   Padding(padding: const EdgeInsets.only(top:10, bottom:10),
                     child: TextFormField(
-                          style: const TextStyle(color: Colors.black),
+                          style: const TextStyle(color: Colors.black87, fontSize: 14),
                           controller: passwordController,
-                          obscureText: true,
+                          obscureText: visibilityPassword,
                           decoration: InputDecoration(
-                              hintText: 'CONTRASEÑA',
-                              hintStyle: const TextStyle(color: AppTheme.verdeAgua, fontSize: 14),
+                              labelText: 'CONTRASEÑA',
+                              labelStyle: const TextStyle(color: AppTheme.verdeAgua, fontSize: 14),
                               filled: true,
                               fillColor: Colors.white.withOpacity(0.7),
                               contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
                               border: UnderlineInputBorder(
                                   borderRadius: BorderRadius.circular(30),
                                   borderSide: BorderSide.none
-                              )
+                              ),
+                            suffixIcon: IconButton(onPressed: () {
+                              setState(() {
+                                visibilityPassword = !visibilityPassword;
+                              });
+                              }, icon: Icon(
+                              visibilityPassword ? Icons.visibility_off : Icons.visibility,
+                              color: AppTheme.verdeAgua,
+                            ),)
                           ),
                           textInputAction: TextInputAction.next,
                           validator: (value) => RegisterValidator.validatePassword(value),
+                      
                         ),
                   ),
                         Padding(padding: const EdgeInsets.only(bottom:10),
                           child: TextFormField(
-                            style: const TextStyle(color: Colors.black),
-                            obscureText: true,
+                            style: const TextStyle(color: Colors.black87, fontSize: 14),
+                            obscureText: visibilityConfirmedPassword,
                             decoration: InputDecoration(
-                                hintText: 'CONFIRMAR CONTRASEÑA',
-                                hintStyle: const TextStyle(color: AppTheme.verdeAgua, fontSize: 14),
+                                labelText: 'CONFIRMAR CONTRASEÑA',
+                                labelStyle: const TextStyle(color: AppTheme.verdeAgua, fontSize: 14),
                                 filled: true,
                                 fillColor: Colors.white.withOpacity(0.7),
                                 contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
                                 border: UnderlineInputBorder(
                                     borderRadius: BorderRadius.circular(30),
                                     borderSide: BorderSide.none
-                                )
+                                ),
+                                suffixIcon: IconButton(onPressed: () {
+                                  setState(() {
+                                    visibilityConfirmedPassword = !visibilityConfirmedPassword;
+                                  });
+                                }, icon: Icon(
+                                  visibilityConfirmedPassword ? Icons.visibility_off : Icons.visibility,
+                                  color: AppTheme.verdeAgua,
+                                ),)
                             ),
                             keyboardType: TextInputType.visiblePassword,
                             textInputAction: TextInputAction.done,

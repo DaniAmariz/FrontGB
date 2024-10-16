@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/interface/screens/auth/resetPasswordScreen.dart';
 import 'package:go_router/go_router.dart';
 import 'package:frontend/interface/screens/user/profileScreen.dart';
 import 'package:frontend/interface/screens/home/homeScreenContainer.dart';
@@ -31,6 +32,12 @@ final GoRouter appRouter = GoRouter(
       name: ProfileScreen.name,
       builder: (BuildContext context, GoRouterState state) =>
       const ProfileScreen(),
-    )
+    ),
+    GoRoute(
+      path: '/reset',
+      name: ResetPasswordScreen.name,
+      builder: (BuildContext context, GoRouterState state) =>
+      const ResetPasswordScreen(),
+    ),
   ],
 );
