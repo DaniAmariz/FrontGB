@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/config/helpers/birdsDataService.dart';
 import 'package:frontend/config/models/birdModel.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -44,6 +45,30 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            if (birds.isNotEmpty)
+              CarouselSlider.builder(
+                itemCount: birds.length,
+                itemBuilder: (context, index, realIndex) {
+                  return Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 5),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      image: DecorationImage(
+                        image: NetworkImage(birds[index].img),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  );
+                },
+                options: CarouselOptions(
+                  height: 200.0,
+                  autoPlay: true,
+                  autoPlayCurve: Curves.easeInOut,
+                  enlargeCenterPage: true,
+                  autoPlayInterval: const Duration(seconds: 5),
+                  scrollDirection: Axis.horizontal,
+                ),
+              ),
             Expanded(
               child: ListView.builder(
                 itemCount: birds.length,
@@ -72,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.white
+                                color: Colors.white,
                               ),
                             ),
                             const SizedBox(height: 8),
